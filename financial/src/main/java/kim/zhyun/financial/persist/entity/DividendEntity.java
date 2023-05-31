@@ -1,5 +1,6 @@
 package kim.zhyun.financial.persist.entity;
 
+import kim.zhyun.financial.model.Dividend;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -25,4 +26,10 @@ public class DividendEntity {
     private LocalDateTime date;
 
     private String dividend;
+
+    public DividendEntity(Long companyId, Dividend dividend) {
+        this.companyId = companyId;
+        this.date = dividend.getDate();
+        this.dividend = dividend.getDividend();
+    }
 }

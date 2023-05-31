@@ -1,9 +1,10 @@
 package kim.zhyun.financial.model;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Company {
 
