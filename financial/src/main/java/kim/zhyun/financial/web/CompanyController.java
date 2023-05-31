@@ -1,8 +1,11 @@
 package kim.zhyun.financial.web;
 
 import kim.zhyun.financial.model.Company;
+import kim.zhyun.financial.persist.entity.CompanyEntity;
 import kim.zhyun.financial.service.CompanyService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +25,9 @@ public class CompanyController {
 
     // 회사 조회 api
     @GetMapping
-    public ResponseEntity<?> searchCompany() {
-        return null;
+    public ResponseEntity<?> searchCompany(final Pageable pageable) {
+        Page<CompanyEntity> companies = this.companyService.getAllCompany(pageable);
+        return ResponseEntity.ok(companies);
     }
 
     // 배당금 데이터 저장 api
