@@ -9,6 +9,7 @@ import kim.zhyun.financial.persist.entity.DividendEntity;
 import kim.zhyun.financial.scraper.Scraper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -52,5 +53,13 @@ public class CompanyService {
 
         this.dividendRepository.saveAll(dividendEntities);
         return company;
+    }
+
+    public List<String> getCompanyNamesByKeyword(String keyword) {
+        Pageable limit = PageRequest.of(0, 10);
+        Page<CompanyEntity> companyEntities = this.companyRepository.findByNameStartingWithIgnoreCase(keyword, limit);
+        return companyEntities.stream()
+                                .map(entity -> entity.getName())
+                                .collect(Collectors.toList());
     }
 }
