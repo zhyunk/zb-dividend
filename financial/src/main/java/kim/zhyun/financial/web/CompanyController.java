@@ -20,7 +20,8 @@ public class CompanyController {
     // 자동완성 api
     @GetMapping("/autocomplete")
     public ResponseEntity<?> autocomplete(@RequestParam String keyword) {
-        return null;
+        var result = this.companyService.autocomplete(keyword);
+        return ResponseEntity.ok(result);
     }
 
     // 회사 조회 api
@@ -38,6 +39,9 @@ public class CompanyController {
             throw new RuntimeException("ticker is empty");
 
         Company company = this.companyService.save(ticker);
+
+        // 자동완성 값 추가
+        this.companyService.addAutocompleteKeyword(company.getName());
         return ResponseEntity.ok(company);
     }
 
